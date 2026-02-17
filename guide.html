@@ -524,7 +524,8 @@
 
         <!-- 評価基準 -->
         <section>
-            <h2 class="section-title"><span class="emoji">📋</span>ナレッジ評価基準</h2>
+            <h2 class="section-title"><span class="emoji">📋</span>ナレッジ評価基準（AI自動判定）</h2>
+            <p style="color: var(--text-light); margin-bottom: 20px;">投稿内容をAIが分析し、以下のカテゴリに自動分類されます</p>
             <table class="criteria-table">
                 <thead>
                     <tr>
@@ -613,8 +614,8 @@
                 </div>
                 <div class="ranking-type-card blue">
                     <h3>⭐ 発信品質ランキング</h3>
-                    <p>価値の高いナレッジを発信している人を評価。カテゴリポイントの合計。</p>
-                    <div class="formula">Σ (カテゴリポイント)</div>
+                    <p>価値の高いナレッジを発信している人を評価。カテゴリ + リアクション。</p>
+                    <div class="formula">Σカテゴリp + 👀×0.1 + ❤️×0.2</div>
                 </div>
                 <div class="ranking-type-card green">
                     <h3>👀 閲覧貢献ランキング</h3>
@@ -670,8 +671,8 @@
                 <div class="rule-item">
                     <div class="rule-num">2</div>
                     <div class="rule-content">
-                        <h4>ナレッジカテゴリを選択</h4>
-                        <p>投稿時に「📊ナレッジカテゴリ」を選択。基準表を参考に、内容の価値に応じてカテゴリを設定。</p>
+                        <h4>カテゴリは自動判定</h4>
+                        <p>投稿内容をAIが分析し、カテゴリ（3p/2p/1p）を自動判定。投稿者の選択は不要です。</p>
                     </div>
                 </div>
                 <div class="rule-item">
