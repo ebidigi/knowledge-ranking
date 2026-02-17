@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ナレッジ発信評価ガイド | DigiMan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* DigiMan Brand Colors */
+            --primary-blue: #1155cc;
+            --secondary-blue: #00a2da;
+            --accent-yellow: #e8d335;
+            --accent-orange: #e04f24;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #f8f9fa;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.7;
+        }
+
+        /* ヒーローセクション */
+        .hero {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            color: white;
+            padding: 80px 20px;
+            text-align: center;
+        }
+
+        .hero h1 {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+            font-size: 2.8rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: var(--accent-yellow);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            color: rgba(255,255,255,0.85);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 60px 20px;
+        }
+
+        /* セクション共通 */
+        section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+            font-size: 1.8rem;
+            font-weight: 700;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid var(--accent-yellow);
+            display: inline-block;
+            color: var(--primary-blue);
+        }
+
+        .section-title .emoji {
+            margin-right: 10px;
+        }
+
+        /* 目的セクション */
+        .purpose-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .purpose-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(17, 85, 204, 0.08);
+            text-align: center;
+            transition: transform 0.3s ease;
+            border-top: 4px solid var(--secondary-blue);
+        }
+
+        .purpose-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .purpose-card .icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .purpose-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--primary-blue);
+        }
+
+        .purpose-card p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* フロー図 */
+        .flow-section {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 4px 20px rgba(17, 85, 204, 0.08);
+        }
+
+        .flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .flow-step {
+            background: linear-gradient(135deg, var(--primary-blue), var(--secondary-blue));
+            color: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            text-align: center;
+            min-width: 140px;
+        }
+
+        .flow-step .step-num {
+            font-family: 'Poppins', sans-serif;
+            font-size: 0.8rem;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+
+        .flow-step .step-title {
+            font-weight: 600;
+            font-size: 1rem;
+        }
+
+        .flow-arrow {
+            font-size: 1.5rem;
+            color: var(--secondary-blue);
+        }
+
+        /* 評価基準テーブル */
+        .criteria-table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(17, 85, 204, 0.08);
+        }
+
+        .criteria-table th {
+            background: var(--primary-blue);
+            color: white;
+            padding: 18px 15px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .criteria-table td {
+            padding: 18px 15px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .criteria-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .criteria-table tr:hover {
+            background: rgba(17, 85, 204, 0.03);
+        }
+
+        .score-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: white;
+        }
+
+        .score-badge.score-3 {
+            background: linear-gradient(135deg, var(--accent-orange), #ff6b4a);
+        }
+
+        .score-badge.score-2 {
+            background: linear-gradient(135deg, var(--accent-yellow), #f5d742);
+            color: var(--text-dark);
+        }
+
+        .score-badge.score-1 {
+            background: linear-gradient(135deg, var(--secondary-blue), #33b8e8);
+        }
+
+        .category-name {
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: var(--primary-blue);
+        }
+
+        .category-examples {
+            color: var(--text-light);
+            font-size: 0.9rem;
+            margin-top: 5px;
+        }
+
+        /* ランキング説明 */
+        .ranking-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+        }
+
+        .ranking-type-card {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(17, 85, 204, 0.08);
+            border-left: 5px solid;
+        }
+
+        .ranking-type-card.gold { border-color: var(--accent-yellow); }
+        .ranking-type-card.blue { border-color: var(--secondary-blue); }
+        .ranking-type-card.green { border-color: #00c896; }
+
+        .ranking-type-card h3 {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+            margin-bottom: 15px;
+            color: var(--primary-blue);
+        }
+
+        .ranking-type-card p {
+            color: var(--text-light);
+            margin-bottom: 15px;
+        }
+
+        .ranking-type-card .formula {
+            background: rgba(17, 85, 204, 0.05);
+            padding: 12px 15px;
+            border-radius: 8px;
+            font-family: 'SF Mono', Monaco, monospace;
+            font-size: 0.9rem;
+            color: var(--primary-blue);
+        }
+
+        /* 評価への反映 */
+        .evaluation-section {
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border-radius: 20px;
+            padding: 50px 40px;
+            color: white;
+        }
+
+        .evaluation-section .section-title {
+            color: white;
+            border-color: var(--accent-yellow);
+        }
+
+        .evaluation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 25px;
+            margin-top: 30px;
+        }
+
+        .evaluation-item {
+            background: rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 30px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+        }
+
+        .evaluation-item .rank-icon {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .evaluation-item h4 {
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .evaluation-item p {
+            color: rgba(255,255,255,0.8);
+            font-size: 0.9rem;
+        }
+
+        .evaluation-item .reward {
+            margin-top: 15px;
+            padding: 10px 15px;
+            background: rgba(232, 211, 53, 0.2);
+            border-radius: 8px;
+            color: var(--accent-yellow);
+            font-weight: 600;
+            font-size: 0.95rem;
+        }
+
+        /* 運用ルール */
+        .rules-list {
+            background: white;
+            border-radius: 16px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(17, 85, 204, 0.08);
+        }
+
+        .rule-item {
+            display: flex;
+            gap: 15px;
+            padding: 20px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .rule-item:last-child {
+            border-bottom: none;
+        }
+
+        .rule-num {
+            width: 36px;
+            height: 36px;
+            background: var(--primary-blue);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+
+        .rule-content h4 {
+            font-size: 1.05rem;
+            margin-bottom: 5px;
+            color: var(--primary-blue);
+        }
+
+        .rule-content p {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* CTA */
+        .cta-section {
+            text-align: center;
+            padding: 60px 20px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--secondary-blue) 100%);
+            border-radius: 20px;
+            color: white;
+        }
+
+        .cta-section h2 {
+            font-family: 'Poppins', 'Noto Sans JP', sans-serif;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .cta-section p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            margin-bottom: 30px;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1rem;
+            text-decoration: none;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .cta-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .cta-btn.primary {
+            background: var(--accent-yellow);
+            color: var(--text-dark);
+        }
+
+        .cta-btn.secondary {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 2px solid rgba(255,255,255,0.3);
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        footer a {
+            color: var(--primary-blue);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .flow {
+                flex-direction: column;
+            }
+
+            .flow-arrow {
+                transform: rotate(90deg);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ヒーロー -->
+    <header class="hero">
+        <h1><span>ナレッジ発信</span>評価制度</h1>
+        <p>知見を共有し、チーム全体で成長する文化を創る</p>
+    </header>
+
+    <div class="container">
+        <!-- 目的 -->
+        <section>
+            <h2 class="section-title"><span class="emoji">🎯</span>この制度の目的</h2>
+            <div class="purpose-cards">
+                <div class="purpose-card">
+                    <div class="icon">📈</div>
+                    <h3>アポ率の向上</h3>
+                    <p>成功事例やトーク術を共有し、チーム全体の営業力を底上げ</p>
+                </div>
+                <div class="purpose-card">
+                    <div class="icon">⚡</div>
+                    <h3>生産性の向上</h3>
+                    <p>業務効率化のノウハウを横展開し、無駄な時間を削減</p>
+                </div>
+                <div class="purpose-card">
+                    <div class="icon">🛡️</div>
+                    <h3>リスクの低減</h3>
+                    <p>ヒヤリハットを共有し、同じ失敗を繰り返さない</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 運用フロー -->
+        <section class="flow-section">
+            <h2 class="section-title"><span class="emoji">🔄</span>運用フロー</h2>
+            <div class="flow">
+                <div class="flow-step">
+                    <div class="step-num">STEP 1</div>
+                    <div class="step-title">Notionに記録</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 2</div>
+                    <div class="step-title">Slackで発信</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 3</div>
+                    <div class="step-title">👀❤️で反応</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step">
+                    <div class="step-num">STEP 4</div>
+                    <div class="step-title">ランキング集計</div>
+                </div>
+                <div class="flow-arrow">→</div>
+                <div class="flow-step" style="background: linear-gradient(135deg, var(--accent-orange), #ff6b4a);">
+                    <div class="step-num">STEP 5</div>
+                    <div class="step-title">評価に反映</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 評価基準 -->
+        <section>
+            <h2 class="section-title"><span class="emoji">📋</span>ナレッジ評価基準</h2>
+            <table class="criteria-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">スコア</th>
+                        <th>カテゴリ</th>
+                        <th style="width: 40%;">具体例</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><div class="score-badge score-3">3p</div></td>
+                        <td>
+                            <div class="category-name">アポ率直結</div>
+                            <div class="category-examples">営業成果に直接貢献</div>
+                        </td>
+                        <td>成約につながったトーク術、決裁者アプローチ法、業界別攻略法</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-3">3p</div></td>
+                        <td>
+                            <div class="category-name">全社ツール</div>
+                            <div class="category-examples">全員が使える資産</div>
+                        </td>
+                        <td>業務効率化ツール作成、テンプレート整備、自動化スクリプト</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-3">3p</div></td>
+                        <td>
+                            <div class="category-name">重大ヒヤリハット</div>
+                            <div class="category-examples">再発防止に高価値</div>
+                        </td>
+                        <td>大きな失敗からの学び、クレーム対応事例、リスク回避術</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-2">2p</div></td>
+                        <td>
+                            <div class="category-name">生産性向上</div>
+                            <div class="category-examples">特定業務の効率化</div>
+                        </td>
+                        <td>時短術、便利ツール紹介、ショートカット集</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-2">2p</div></td>
+                        <td>
+                            <div class="category-name">競合・市場分析</div>
+                            <div class="category-examples">戦略立案に貢献</div>
+                        </td>
+                        <td>競合情報、業界トレンド、マーケット分析</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-2">2p</div></td>
+                        <td>
+                            <div class="category-name">プロダクト知見</div>
+                            <div class="category-examples">提案力の強化</div>
+                        </td>
+                        <td>機能活用法、顧客事例の深掘り、ユースケース</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-1">1p</div></td>
+                        <td>
+                            <div class="category-name">日常Tips</div>
+                            <div class="category-examples">小さな改善の積み重ね</div>
+                        </td>
+                        <td>小さな気づき、会議メモ、個人ノウハウ</td>
+                    </tr>
+                    <tr>
+                        <td><div class="score-badge score-1">1p</div></td>
+                        <td>
+                            <div class="category-name">情報共有</div>
+                            <div class="category-examples">情報の可視化</div>
+                        </td>
+                        <td>ニュース、イベント案内、参考記事紹介</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- ランキング種類 -->
+        <section>
+            <h2 class="section-title"><span class="emoji">🏆</span>3つのランキング</h2>
+            <div class="ranking-types">
+                <div class="ranking-type-card gold">
+                    <h3>🏆 発信数ランキング</h3>
+                    <p>ナレッジを積極的に発信している人を評価。量が質を生む。</p>
+                    <div class="formula">投稿数 をカウント</div>
+                </div>
+                <div class="ranking-type-card blue">
+                    <h3>⭐ 発信品質ランキング</h3>
+                    <p>価値の高いナレッジを発信している人を評価。カテゴリポイントの合計。</p>
+                    <div class="formula">Σ (カテゴリポイント)</div>
+                </div>
+                <div class="ranking-type-card green">
+                    <h3>👀 閲覧貢献ランキング</h3>
+                    <p>他者のナレッジを積極的に見ている人を評価。学ぶ姿勢。</p>
+                    <div class="formula">つけた 👀 の回数</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 評価への反映 -->
+        <section class="evaluation-section">
+            <h2 class="section-title"><span class="emoji">🎖️</span>評価への反映</h2>
+            <p style="color: rgba(255,255,255,0.8); margin-bottom: 20px;">月次でランキングを集計し、以下の形で評価に反映します</p>
+            <div class="evaluation-grid">
+                <div class="evaluation-item">
+                    <div class="rank-icon">🥇</div>
+                    <h4>発信数 TOP3</h4>
+                    <p>積極的な情報発信者として表彰</p>
+                    <div class="reward">全体会議で紹介</div>
+                </div>
+                <div class="evaluation-item">
+                    <div class="rank-icon">⭐</div>
+                    <h4>品質 TOP3</h4>
+                    <p>高品質なナレッジ提供者として表彰</p>
+                    <div class="reward">特別インセンティブ</div>
+                </div>
+                <div class="evaluation-item">
+                    <div class="rank-icon">📚</div>
+                    <h4>閲覧貢献 TOP3</h4>
+                    <p>学習意欲の高いメンバーとして表彰</p>
+                    <div class="reward">成長意欲を評価</div>
+                </div>
+                <div class="evaluation-item">
+                    <div class="rank-icon">📊</div>
+                    <h4>人事評価</h4>
+                    <p>半期評価の「貢献」項目に反映</p>
+                    <div class="reward">評価シートに記載</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 運用ルール -->
+        <section>
+            <h2 class="section-title"><span class="emoji">📝</span>運用ルール</h2>
+            <div class="rules-list">
+                <div class="rule-item">
+                    <div class="rule-num">1</div>
+                    <div class="rule-content">
+                        <h4>Notionに記録 → Slackで発信</h4>
+                        <p>渾身のナレッジをDigiMan｜Wikiに記録し、#0_knowledge_give チャンネルで共有してください。</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">2</div>
+                    <div class="rule-content">
+                        <h4>ナレッジカテゴリを選択</h4>
+                        <p>投稿時に「📊ナレッジカテゴリ」を選択。基準表を参考に、内容の価値に応じてカテゴリを設定。</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">3</div>
+                    <div class="rule-content">
+                        <h4>見たら 👀 をつける</h4>
+                        <p>Notionページを確認したら「見た人」に自分を追加。閲覧貢献としてカウントされます。</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">4</div>
+                    <div class="rule-content">
+                        <h4>良いと思ったら ❤️</h4>
+                        <p>参考になったナレッジには❤️をつけて、発信者にフィードバックを送りましょう。</p>
+                    </div>
+                </div>
+                <div class="rule-item">
+                    <div class="rule-num">5</div>
+                    <div class="rule-content">
+                        <h4>月次で集計・発表</h4>
+                        <p>毎月末にランキングを集計し、翌月初の全体会議でTOP3を発表します。</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CTA -->
+        <section class="cta-section">
+            <h2>さあ、ナレッジを発信しよう！</h2>
+            <p>あなたの知見がチーム全体の成長につながります</p>
+            <div class="cta-buttons">
+                <a href="https://www.notion.so/digiman/2e64e5d99eb3815dab07ef52c5dac026" class="cta-btn primary" target="_blank">
+                    📝 DigiMan｜Wiki を開く
+                </a>
+                <a href="https://digi-man.slack.com/archives/C0AA1F4L9V1" class="cta-btn secondary" target="_blank">
+                    💬 Slackチャンネルを開く
+                </a>
+            </div>
+        </section>
+    </div>
+
+    <footer>
+        <p>ナレッジ発信評価制度 v1.0 | DigiMan Inc.</p>
+        <p style="margin-top: 5px;">
+            <a href="index.html">現在のランキングを見る →</a>
+        </p>
+    </footer>
+</body>
+</html>

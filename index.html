@@ -1,0 +1,642 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ナレッジ発信ランキング | DigiMan</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;600;700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            /* メインカラー */
+            --primary-blue: #1155cc;
+            --primary-cyan: #00a2da;
+            --primary-yellow: #e8d335;
+            --primary-red: #e04f24;
+
+            /* ブルー系 */
+            --blue-50: #e7eefb;
+            --blue-100: #c2d6f9;
+            --blue-200: #86aaec;
+            --blue-300: #437ce1;
+            --blue-400: #1155cc;
+            --blue-500: #0c3d93;
+            --blue-600: #082558;
+
+            /* シアン系 */
+            --cyan-50: #eff8fa;
+            --cyan-100: #a1d7ea;
+            --cyan-200: #6dc6e5;
+            --cyan-300: #00a2da;
+            --cyan-400: #0083b0;
+
+            /* イエロー系 */
+            --yellow-50: #fbf8e2;
+            --yellow-100: #f4edb6;
+            --yellow-200: #ede07d;
+            --yellow-300: #e8d335;
+            --yellow-400: #dbc522;
+
+            /* レッド系 */
+            --red-50: #ffeae4;
+            --red-100: #fecec0;
+            --red-200: #ef947a;
+            --red-300: #ec724e;
+            --red-400: #e04f24;
+
+            /* グレー系 */
+            --gray-50: #fafaff;
+            --gray-100: #f9f9fc;
+            --gray-200: #e4e8ef;
+            --gray-300: #d0d4dc;
+            --gray-400: #b1b4ba;
+            --gray-500: #787b7f;
+            --gray-600: #434547;
+
+            /* セマンティック */
+            --text-dark: #434547;
+            --text-light: #787b7f;
+            --text-muted: #688dce;
+            --bg-white: #FFFFFF;
+            --bg-light: #f9f9fc;
+            --border-color: #e4e8ef;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans JP', 'Poppins', sans-serif;
+            background: linear-gradient(135deg, var(--blue-600) 0%, var(--blue-500) 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            color: white;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        .header h1 span {
+            background: linear-gradient(90deg, var(--primary-yellow), var(--cyan-300));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .header .period {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.1rem;
+            color: var(--blue-100);
+        }
+
+        .rankings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+        }
+
+        .ranking-card {
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(8, 37, 88, 0.15);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .ranking-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 50px rgba(8, 37, 88, 0.2);
+        }
+
+        .ranking-card.gold {
+            border-top: 4px solid var(--primary-yellow);
+        }
+
+        .ranking-card.blue {
+            border-top: 4px solid var(--primary-blue);
+        }
+
+        .ranking-card.cyan {
+            border-top: 4px solid var(--primary-cyan);
+        }
+
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .card-icon {
+            font-size: 2rem;
+        }
+
+        .card-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .card-subtitle {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-top: 2px;
+        }
+
+        .ranking-list {
+            list-style: none;
+        }
+
+        .ranking-item {
+            display: flex;
+            align-items: center;
+            padding: 15px 0;
+            border-bottom: 1px solid var(--gray-200);
+        }
+
+        .ranking-item:last-child {
+            border-bottom: none;
+        }
+
+        .rank {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1rem;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+
+        .rank-1 {
+            background: linear-gradient(135deg, #ffd700, #ffaa00);
+            color: var(--blue-600);
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .rank-2 {
+            background: linear-gradient(135deg, #c0c0c0, #a0a0a0);
+            color: var(--blue-600);
+            box-shadow: 0 4px 15px rgba(192, 192, 192, 0.3);
+        }
+
+        .rank-3 {
+            background: linear-gradient(135deg, #cd7f32, #b87333);
+            color: white;
+            box-shadow: 0 4px 15px rgba(205, 127, 50, 0.3);
+        }
+
+        .rank-other {
+            background: var(--gray-200);
+            color: var(--text-light);
+        }
+
+        .member-info {
+            flex: 1;
+        }
+
+        .member-name {
+            font-weight: 600;
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 3px;
+        }
+
+        .member-detail {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .score {
+            text-align: right;
+        }
+
+        .score-value {
+            font-family: 'Poppins', sans-serif;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        .score-label {
+            font-size: 0.75rem;
+            color: var(--text-light);
+        }
+
+        .score-value.gold { color: var(--yellow-400); }
+        .score-value.blue { color: var(--primary-blue); }
+        .score-value.cyan { color: var(--primary-cyan); }
+
+        /* 評価基準セクション */
+        .criteria-section {
+            margin-top: 50px;
+            background: var(--bg-white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 40px rgba(8, 37, 88, 0.15);
+        }
+
+        .criteria-title {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: var(--text-dark);
+        }
+
+        .criteria-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .criteria-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 15px;
+            background: var(--gray-50);
+            border-radius: 10px;
+            border: 1px solid var(--gray-200);
+        }
+
+        .criteria-score {
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 700;
+            font-size: 1.1rem;
+            flex-shrink: 0;
+        }
+
+        .criteria-score.score-3 {
+            background: linear-gradient(135deg, var(--red-400), var(--red-300));
+            color: white;
+        }
+
+        .criteria-score.score-2 {
+            background: linear-gradient(135deg, var(--yellow-300), var(--yellow-400));
+            color: var(--text-dark);
+        }
+
+        .criteria-score.score-1 {
+            background: linear-gradient(135deg, var(--cyan-300), var(--cyan-400));
+            color: white;
+        }
+
+        .criteria-text {
+            font-size: 0.9rem;
+        }
+
+        .criteria-text strong {
+            display: block;
+            margin-bottom: 2px;
+            color: var(--text-dark);
+        }
+
+        .criteria-text span {
+            color: var(--text-light);
+            font-size: 0.8rem;
+        }
+
+        /* 評価反映セクション */
+        .evaluation-section {
+            margin-top: 50px;
+            background: linear-gradient(135deg, var(--primary-blue) 0%, var(--blue-300) 100%);
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            color: white;
+        }
+
+        .evaluation-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+        }
+
+        .evaluation-section > p {
+            color: var(--blue-100);
+            margin-bottom: 25px;
+        }
+
+        .evaluation-grid {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        .evaluation-item {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 20px 30px;
+            border-radius: 12px;
+            backdrop-filter: blur(10px);
+        }
+
+        .evaluation-item .icon {
+            font-size: 2rem;
+        }
+
+        .evaluation-item .label {
+            margin-top: 10px;
+            font-weight: 600;
+        }
+
+        .guide-link {
+            display: inline-block;
+            margin-top: 25px;
+            padding: 12px 30px;
+            background: white;
+            color: var(--primary-blue);
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .guide-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--blue-100);
+            font-size: 0.85rem;
+        }
+
+        .footer a {
+            color: var(--cyan-200);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+
+            .rankings-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1><span>ナレッジ発信</span>ランキング</h1>
+            <p class="period">2026年2月 集計</p>
+        </header>
+
+        <div class="rankings-grid">
+            <!-- 発信数ランキング -->
+            <div class="ranking-card gold">
+                <div class="card-header">
+                    <span class="card-icon">🏆</span>
+                    <div>
+                        <div class="card-title">発信数ランキング</div>
+                        <div class="card-subtitle">ナレッジ投稿数</div>
+                    </div>
+                </div>
+                <ul class="ranking-list">
+                    <li class="ranking-item">
+                        <div class="rank rank-1">1</div>
+                        <div class="member-info">
+                            <div class="member-name">安達昭典</div>
+                            <div class="member-detail">AI活用・業務改善</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value gold">23</div>
+                            <div class="score-label">投稿</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="member-info">
+                            <div class="member-name">海老根涼太</div>
+                            <div class="member-detail">ダッシュボード開発</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value gold">9</div>
+                            <div class="score-label">投稿</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 発信品質ランキング -->
+            <div class="ranking-card blue">
+                <div class="card-header">
+                    <span class="card-icon">⭐</span>
+                    <div>
+                        <div class="card-title">発信品質ランキング</div>
+                        <div class="card-subtitle">総スコア（カテゴリポイント×投稿数）</div>
+                    </div>
+                </div>
+                <ul class="ranking-list">
+                    <li class="ranking-item">
+                        <div class="rank rank-1">1</div>
+                        <div class="member-info">
+                            <div class="member-name">安達昭典</div>
+                            <div class="member-detail">3p｜高インパクト多数</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value blue">49</div>
+                            <div class="score-label">pt</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="member-info">
+                            <div class="member-name">海老根涼太</div>
+                            <div class="member-detail">2p｜生産性向上中心</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value blue">21</div>
+                            <div class="score-label">pt</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!-- 閲覧貢献ランキング -->
+            <div class="ranking-card cyan">
+                <div class="card-header">
+                    <span class="card-icon">👀</span>
+                    <div>
+                        <div class="card-title">閲覧貢献ランキング</div>
+                        <div class="card-subtitle">他者の投稿を見た回数</div>
+                    </div>
+                </div>
+                <ul class="ranking-list">
+                    <li class="ranking-item">
+                        <div class="rank rank-1">1</div>
+                        <div class="member-info">
+                            <div class="member-name">海老根涼太</div>
+                            <div class="member-detail">積極的に閲覧</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value cyan">8</div>
+                            <div class="score-label">回</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="member-info">
+                            <div class="member-name">菊池幸平</div>
+                            <div class="member-detail">定期的に閲覧</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value cyan">5</div>
+                            <div class="score-label">回</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-3">3</div>
+                        <div class="member-info">
+                            <div class="member-name">小甲陽平</div>
+                            <div class="member-detail">時々閲覧</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value cyan">2</div>
+                            <div class="score-label">回</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-other">4</div>
+                        <div class="member-info">
+                            <div class="member-name">岡部りさ</div>
+                            <div class="member-detail">閲覧あり</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value cyan">1</div>
+                            <div class="score-label">回</div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 評価基準 -->
+        <section class="criteria-section">
+            <h2 class="criteria-title">📊 ナレッジカテゴリ（評価基準）</h2>
+            <div class="criteria-grid">
+                <div class="criteria-item">
+                    <div class="criteria-score score-3">3p</div>
+                    <div class="criteria-text">
+                        <strong>アポ率直結</strong>
+                        <span>成約トーク、決裁者アプローチ法</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-3">3p</div>
+                    <div class="criteria-text">
+                        <strong>全社ツール</strong>
+                        <span>業務効率化ツール・テンプレート</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-3">3p</div>
+                    <div class="criteria-text">
+                        <strong>重大ヒヤリハット</strong>
+                        <span>大きな失敗からの学び</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-2">2p</div>
+                    <div class="criteria-text">
+                        <strong>生産性向上</strong>
+                        <span>時短術、便利ツール紹介</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-2">2p</div>
+                    <div class="criteria-text">
+                        <strong>競合・市場分析</strong>
+                        <span>競合情報、業界トレンド</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-2">2p</div>
+                    <div class="criteria-text">
+                        <strong>プロダクト知見</strong>
+                        <span>機能活用法、顧客事例</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-1">1p</div>
+                    <div class="criteria-text">
+                        <strong>日常Tips</strong>
+                        <span>小さな気づき、会議メモ</span>
+                    </div>
+                </div>
+                <div class="criteria-item">
+                    <div class="criteria-score score-1">1p</div>
+                    <div class="criteria-text">
+                        <strong>情報共有</strong>
+                        <span>ニュース、イベント案内</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 評価反映セクション -->
+        <section class="evaluation-section">
+            <h2>🎖️ ランキング → 評価への反映</h2>
+            <p>各ランキングTOP3は全体会議で表彰、半期評価の「貢献」項目に反映されます</p>
+            <div class="evaluation-grid">
+                <div class="evaluation-item">
+                    <div class="icon">🥇🥈🥉</div>
+                    <div class="label">全体会議で表彰</div>
+                </div>
+                <div class="evaluation-item">
+                    <div class="icon">📊</div>
+                    <div class="label">人事評価に反映</div>
+                </div>
+                <div class="evaluation-item">
+                    <div class="icon">💰</div>
+                    <div class="label">インセンティブ</div>
+                </div>
+            </div>
+            <a href="guide.html" class="guide-link">📋 評価制度の詳細を見る</a>
+        </section>
+
+        <footer class="footer">
+            <p>集計元: <a href="https://www.notion.so/digiman/2e64e5d99eb3815dab07ef52c5dac026" target="_blank">DigiMan｜Wiki</a></p>
+            <p style="margin-top: 5px;">Last updated: 2026-02-17</p>
+        </footer>
+    </div>
+</body>
+</html>
