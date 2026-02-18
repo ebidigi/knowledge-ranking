@@ -109,7 +109,7 @@
 
         .rankings-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(2, 1fr);
             gap: 30px;
         }
 
@@ -136,6 +136,10 @@
 
         .ranking-card.cyan {
             border-top: 4px solid var(--primary-cyan);
+        }
+
+        .ranking-card.red {
+            border-top: 4px solid var(--primary-red);
         }
 
         .card-header {
@@ -247,6 +251,7 @@
         .score-value.gold { color: var(--yellow-400); }
         .score-value.blue { color: var(--primary-blue); }
         .score-value.cyan { color: var(--primary-cyan); }
+        .score-value.red { color: var(--primary-red); }
 
         /* 評価基準セクション */
         .criteria-section {
@@ -446,7 +451,7 @@
                         <div class="rank rank-2">2</div>
                         <div class="member-info">
                             <div class="member-name">海老根涼太</div>
-                            <div class="member-detail">ダッシュボード開発</div>
+                            <div class="member-detail">開発・ナレッジ共有</div>
                         </div>
                         <div class="score">
                             <div class="score-value gold">9</div>
@@ -470,10 +475,10 @@
                         <div class="rank rank-1">1</div>
                         <div class="member-info">
                             <div class="member-name">安達昭典</div>
-                            <div class="member-detail">3p｜高インパクト多数</div>
+                            <div class="member-detail">👀15 + ❤️0</div>
                         </div>
                         <div class="score">
-                            <div class="score-value blue">49</div>
+                            <div class="score-value blue">15</div>
                             <div class="score-label">pt</div>
                         </div>
                     </li>
@@ -481,10 +486,10 @@
                         <div class="rank rank-2">2</div>
                         <div class="member-info">
                             <div class="member-name">海老根涼太</div>
-                            <div class="member-detail">2p｜生産性向上中心</div>
+                            <div class="member-detail">👀1 + ❤️0</div>
                         </div>
                         <div class="score">
-                            <div class="score-value blue">21</div>
+                            <div class="score-value blue">1</div>
                             <div class="score-label">pt</div>
                         </div>
                     </li>
@@ -534,15 +539,61 @@
                             <div class="score-label">回</div>
                         </div>
                     </li>
+                </ul>
+            </div>
+
+            <!-- 辞書登録ランキング -->
+            <div class="ranking-card red">
+                <div class="card-header">
+                    <span class="card-icon">📖</span>
+                    <div>
+                        <div class="card-title">辞書登録ランキング</div>
+                        <div class="card-subtitle">DM｜Dictionary 登録数</div>
+                    </div>
+                </div>
+                <ul class="ranking-list">
                     <li class="ranking-item">
-                        <div class="rank rank-other">4</div>
+                        <div class="rank rank-1">1</div>
                         <div class="member-info">
-                            <div class="member-name">岡部りさ</div>
-                            <div class="member-detail">閲覧あり</div>
+                            <div class="member-name">海老根涼太</div>
+                            <div class="member-detail">IT用語・ビジネス用語</div>
                         </div>
                         <div class="score">
-                            <div class="score-value cyan">1</div>
-                            <div class="score-label">回</div>
+                            <div class="score-value red">7</div>
+                            <div class="score-label">登録</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-2">2</div>
+                        <div class="member-info">
+                            <div class="member-name">安達昭典</div>
+                            <div class="member-detail">ビジネス用語</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value red">4</div>
+                            <div class="score-label">登録</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-3">3</div>
+                        <div class="member-info">
+                            <div class="member-name">中村 凌</div>
+                            <div class="member-detail">ビジネス用語</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value red">2</div>
+                            <div class="score-label">登録</div>
+                        </div>
+                    </li>
+                    <li class="ranking-item">
+                        <div class="rank rank-3">3</div>
+                        <div class="member-info">
+                            <div class="member-name">清水陸斗</div>
+                            <div class="member-detail">IT用語</div>
+                        </div>
+                        <div class="score">
+                            <div class="score-value red">2</div>
+                            <div class="score-label">登録</div>
                         </div>
                     </li>
                 </ul>
@@ -635,8 +686,8 @@
         </section>
 
         <footer class="footer">
-            <p>集計元: <a href="https://www.notion.so/digiman/2e64e5d99eb3815dab07ef52c5dac026" target="_blank">DigiMan｜Wiki</a></p>
-            <p style="margin-top: 5px;">Last updated: 2026-02-17</p>
+            <p>集計元: <a href="https://www.notion.so/digiman/06d4e3b9562e421fb622fb5c2206f7a9" target="_blank">🏆 ナレッジ発信ランキング</a> | <a href="https://www.notion.so/digiman/2e34e5d99eb381d5870ce15aa5452abc" target="_blank">DM｜Dictionary</a></p>
+            <p style="margin-top: 5px;">Last updated: 2026-02-18</p>
         </footer>
     </div>
 </body>
